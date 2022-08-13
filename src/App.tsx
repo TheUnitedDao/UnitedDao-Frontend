@@ -227,7 +227,6 @@ function App() {
           >
             <CssBaseline />
             <div className={`app ${isSmallerScreen && "tablet"} ${isSmallScreen && "mobile"} ${theme}`}>
-              <div className="backgroundImage" />
               <StagingNotification />
               <Messages />
               <TopBar theme={theme} toggleTheme={toggleTheme} handleDrawerToggle={handleDrawerToggle} />

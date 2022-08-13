@@ -2,11 +2,7 @@ import { BigNumber } from "ethers";
 import {
   BOND_DEPOSITORY_CONTRACT,
   FIATDAO_WSUNITED_CONTRACT,
-  FUSE_POOL_6_CONTRACT,
-  FUSE_POOL_18_CONTRACT,
-  FUSE_POOL_36_CONTRACT,
   MIGRATOR_CONTRACT,
-  PT_PRIZE_POOL_CONTRACT,
   STAKING_CONTRACT,
   ZAP_CONTRACT,
 } from "src/constants/contracts";
@@ -94,37 +90,6 @@ export const interpretTransaction = (transactions: CovalentTransaction[], addres
         details: "Migration",
         value: new DecimalBigNumber(BigNumber.from(first.decoded.params[2].value), first.sender_contract_decimals),
       });
-
-    if (isContract(PT_PRIZE_POOL_CONTRACT, transaction.to_address))
-      results.push({
-        token: UNITED_TOKEN,
-        transaction,
-        type: "33together",
-        details: "33Together Claim",
-        value: new DecimalBigNumber(BigNumber.from(second.decoded.params[2].value), second.sender_contract_decimals),
-      });
-
-    if (isContract(FUSE_POOL_36_CONTRACT, transaction.to_address)) {
-      const event = transaction.log_events.filter((event: { decoded: { name: string }; sender_address: string }) => {
-        return (
-          event.decoded.name == "Transfer" &&
-          isContract(FUSE_POOL_36_CONTRACT, event.sender_address) &&
-          isContract(FUSE_POOL_18_CONTRACT, event.sender_address) &&
-          isContract(FUSE_POOL_6_CONTRACT, event.sender_address)
-        );
-      });
-
-      results.push({
-        token: UNITED_TOKEN,
-        transaction,
-        type: "borrow",
-        details: "Supply to Fuse",
-        value: new DecimalBigNumber(
-          BigNumber.from(event[0]?.decoded.params[2].value),
-          event[0]?.sender_contract_decimals,
-        ),
-      });
-    }
 
     if (isContract(FIATDAO_WSUNITED_CONTRACT, transaction.to_address)) {
       if (isContract(FIATDAO_WSUNITED_CONTRACT, first.sender_address))

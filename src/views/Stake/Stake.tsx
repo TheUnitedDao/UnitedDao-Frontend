@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { usePathForNetwork } from "src/hooks/usePathForNetwork";
 import { useNetwork } from "wagmi";
 
-import { ExternalStakePools } from "./components/ExternalStakePools/ExternalStakePools";
+//import { ExternalStakePools } from "./components/ExternalStakePools/ExternalStakePools";
 import { StakeArea } from "./components/StakeArea/StakeArea";
 
 const Stake: React.FC = () => {
@@ -17,7 +17,7 @@ const Stake: React.FC = () => {
     <div id="stake-view">
       <StakeArea />
 
-      <ExternalStakePools />
+      {/* <ExternalStakePools /> */}
     </div>
   );
 };

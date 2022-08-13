@@ -6,7 +6,6 @@ import { formatNumber, trim } from "src/helpers";
 import { DecimalBigNumber } from "src/helpers/DecimalBigNumber/DecimalBigNumber";
 import { nonNullable } from "src/helpers/types/nonNullable";
 import {
-  useFuseBalance,
   useGohmBalance,
   useGohmTokemakBalance,
   useSohmBalance,
@@ -128,13 +127,11 @@ const Calculator: FC = () => {
   const gohmBalances = useGohmBalance();
   const { data: sOhmBalance = new DecimalBigNumber("0", 9) } = useSohmBalance()[networks.MAINNET];
   const { data: currentIndex = new DecimalBigNumber("0", 9) } = useCurrentIndex();
-  const { data: gohmFuseBalance = new DecimalBigNumber("0", 18) } = useFuseBalance()[NetworkId.MAINNET];
   const { data: gohmTokemakBalance = new DecimalBigNumber("0", 18) } = useGohmTokemakBalance()[NetworkId.MAINNET];
   const wsohmBalances = useWsohmBalance();
   const { data: v1SohmBalance = new DecimalBigNumber("0", 9) } = useV1SohmBalance()[networks.MAINNET];
 
   const gohmTokens = [
-    gohmFuseBalance,
     gohmTokemakBalance,
     gohmBalances[networks.MAINNET].data,
     gohmBalances[NetworkId.ARBITRUM].data,

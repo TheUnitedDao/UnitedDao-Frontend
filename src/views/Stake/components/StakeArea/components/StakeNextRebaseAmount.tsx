@@ -4,7 +4,6 @@ import { formatNumber } from "src/helpers";
 import { DecimalBigNumber } from "src/helpers/DecimalBigNumber/DecimalBigNumber";
 import { nonNullable } from "src/helpers/types/nonNullable";
 import {
-  useFuseBalance,
   useGohmBalance,
   useGohmTokemakBalance,
   useSohmBalance,
@@ -23,7 +22,6 @@ export const StakeNextRebaseAmount = () => {
   const gohmBalances = useGohmBalance();
   const wsohmBalances = useWsohmBalance();
   const v1sohmBalances = useV1SohmBalance();
-  const gohmFuseBalances = useFuseBalance();
   const gohmTokemakBalances = useGohmTokemakBalance();
 
   const networks = useTestableNetworks();
@@ -44,7 +42,6 @@ export const StakeNextRebaseAmount = () => {
     wsohmBalances[NetworkId.MAINNET].data,
     wsohmBalances[NetworkId.ARBITRUM].data,
     wsohmBalances[NetworkId.AVALANCHE].data,
-    gohmFuseBalances[NetworkId.MAINNET].data,
     gohmTokemakBalances[NetworkId.MAINNET].data,
   ];
   const totalGohmBalance = gohmTokens

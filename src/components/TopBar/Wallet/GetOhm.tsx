@@ -6,7 +6,7 @@ import { FC } from "react";
 import sushiswapImg from "src/assets/sushiswap.png";
 import uniswapImg from "src/assets/uniswap.png";
 import { UNITED_ADDRESSES } from "src/constants/addresses";
-import { formatCurrency, formatNumber, parseBigNumber, trim } from "src/helpers";
+import { formatCurrency, formatNumber, trim } from "src/helpers";
 import {
   balancerPools,
   beetsPools,
@@ -44,8 +44,6 @@ import {
 } from "src/views/Stake/components/ExternalStakePools/hooks/useStakePoolTVL";
 import { useNetwork } from "wagmi";
 
-import { SupplyRatePerBlock } from "./queries";
-
 const PREFIX = "GetOhm";
 
 const classes = {
@@ -66,13 +64,7 @@ const StyledBox = styled(Box)(() => ({
  */
 const GetOhm: FC = () => {
   const { chain = { id: 1 } } = useNetwork();
-  const { data: supplyRate } = SupplyRatePerBlock();
   const { data: rebaseRate = 0 } = useStakingRebaseRate();
-  const ethMantissa = 1e18;
-  const blocksPerDay = 6500;
-  const daysPerYear = 365;
-  const fuseSupplyApy =
-    supplyRate && (Math.pow((parseBigNumber(supplyRate) / ethMantissa) * blocksPerDay + 1, daysPerYear) - 1) * 100;
 
   const bonds = useLiveBonds().data;
   const fiveDayRate = Math.pow(1 + rebaseRate, 5 * 3) - 1;
@@ -199,15 +191,6 @@ const GetOhm: FC = () => {
         <Typography variant="h6" className={classes.title}>
           Borrow
         </Typography>
-        <ItemCard
-          tokens={["RARI"]}
-          title={t`Borrow on Rari`}
-          href={`https://app.rari.capital/fuse/pool/18`}
-          external
-          roi={`${fuseSupplyApy}%`}
-          days="APY"
-          disableFlip
-        />
         <ItemCard
           tokens={["MARKET"]}
           title={t`Borrow on Market.xyz`}

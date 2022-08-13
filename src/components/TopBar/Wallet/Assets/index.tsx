@@ -9,7 +9,6 @@ import { DecimalBigNumber } from "src/helpers/DecimalBigNumber/DecimalBigNumber"
 import { prettifySeconds, prettifySecondsInDays } from "src/helpers/timeUtil";
 import { nonNullable } from "src/helpers/types/nonNullable";
 import {
-  useFuseBalance,
   useGohmBalance,
   useGohmTokemakBalance,
   useOhmBalance,
@@ -99,12 +98,10 @@ const AssetsIndex: FC<UNITEDAssetsProps> = (props: { path?: string }) => {
   const { data: sOhmBalance = new DecimalBigNumber("0", 9) } = useSohmBalance()[networks.MAINNET];
   const wsohmBalances = useWsohmBalance();
   const gohmBalances = useGohmBalance();
-  const { data: gohmFuseBalance = new DecimalBigNumber("0", 18) } = useFuseBalance()[NetworkId.MAINNET];
   const { data: gohmTokemakBalance = new DecimalBigNumber("0", 18) } = useGohmTokemakBalance()[NetworkId.MAINNET];
   const [faucetToken, setFaucetToken] = useState("UNITED V2");
 
   const gohmTokens = [
-    gohmFuseBalance,
     gohmTokemakBalance,
     gohmBalances[networks.MAINNET].data,
     gohmBalances[NetworkId.ARBITRUM].data,

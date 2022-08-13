@@ -6,7 +6,6 @@ import { NetworkId } from "src/constants";
 import { DecimalBigNumber } from "src/helpers/DecimalBigNumber/DecimalBigNumber";
 import { nonNullable } from "src/helpers/types/nonNullable";
 import {
-  useFuseBalance,
   useGohmBalance,
   useGohmTokemakBalance,
   useOhmBalance,
@@ -35,13 +34,11 @@ export const StakeBalances = () => {
   const ohmBalance = useOhmBalance()[networks.MAINNET].data;
   const sohmBalance = useSohmBalance()[networks.MAINNET].data;
   const v1sohmBalance = useV1SohmBalance()[networks.MAINNET].data;
-  const gohmFuseBalance = useFuseBalance()[NetworkId.MAINNET].data;
   const gohmTokemakBalance = useGohmTokemakBalance()[NetworkId.MAINNET].data;
 
   const sohmTokens = [sohmBalance, v1sohmBalance];
 
   const gohmTokens = [
-    gohmFuseBalance,
     gohmTokemakBalance,
     gohmBalances[networks.MAINNET].data,
     gohmBalances[networks.ARBITRUM].data,
@@ -152,15 +149,6 @@ export const StakeBalances = () => {
               title={t`gUNITED (Tokemak)`}
               isLoading={!gohmTokemakBalance}
               balance={`${formatBalance(gohmTokemakBalance)} gUNITED`}
-            />
-          )}
-
-          {hasVisibleBalance(gohmFuseBalance) && (
-            <DataRow
-              indented
-              title={t`gUNITED (Fuse)`}
-              isLoading={!gohmFuseBalance}
-              balance={`${formatBalance(gohmFuseBalance)} gUNITED`}
             />
           )}
 

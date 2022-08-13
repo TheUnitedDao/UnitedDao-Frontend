@@ -1,10 +1,7 @@
-import { useQueries, useQuery, UseQueryResult } from "react-query";
+import { useQueries, UseQueryResult } from "react-query";
 import { NetworkId } from "src/constants";
 import {
   AddressMap,
-  FUSE_POOL_6_ADDRESSES,
-  FUSE_POOL_18_ADDRESSES,
-  FUSE_POOL_36_ADDRESSES,
   GUNITED_ADDRESSES,
   GUNITED_TOKEMAK_ADDRESSES,
   UNITED_ADDRESSES,
@@ -14,11 +11,10 @@ import {
   WSUNITED_ADDRESSES,
 } from "src/constants/addresses";
 import { DecimalBigNumber } from "src/helpers/DecimalBigNumber/DecimalBigNumber";
-import { queryAssertion } from "src/helpers/react-query/queryAssertion";
 import { nonNullable } from "src/helpers/types/nonNullable";
 import { useAccount } from "wagmi";
 
-import { useMultipleTokenContracts, useStaticFuseContract } from "./useContract";
+import { useMultipleTokenContracts } from "./useContract";
 
 export const balanceQueryKey = (address?: string, tokenAddressMap?: AddressMap, networkId?: NetworkId) =>
   ["useBalance", address, tokenAddressMap, networkId].filter(nonNullable);
@@ -56,33 +52,6 @@ export const useBalance = <TAddressMap extends AddressMap = AddressMap>(tokenAdd
 /**
  * Returns gUNITED balance in Fuse
  */
-export const fuseBalanceQueryKey = (address: string) => ["useFuseBalance", address].filter(nonNullable);
-export const useFuseBalance = () => {
-  const { address = "" } = useAccount();
-  const pool6Contract = useStaticFuseContract(FUSE_POOL_6_ADDRESSES[NetworkId.MAINNET], NetworkId.MAINNET);
-  const pool18Contract = useStaticFuseContract(FUSE_POOL_18_ADDRESSES[NetworkId.MAINNET], NetworkId.MAINNET);
-  const pool36Contract = useStaticFuseContract(FUSE_POOL_36_ADDRESSES[NetworkId.MAINNET], NetworkId.MAINNET);
-
-  const query = useQuery<DecimalBigNumber, Error>(
-    fuseBalanceQueryKey(address),
-    async () => {
-      queryAssertion(address, fuseBalanceQueryKey(address));
-
-      const results = await Promise.all(
-        [pool6Contract, pool18Contract, pool36Contract].map(async contract => {
-          const balance = await contract.callStatic.balanceOfUnderlying(address);
-
-          return new DecimalBigNumber(balance, 18);
-        }),
-      );
-
-      return results.reduce((prev, bal) => prev.add(bal), new DecimalBigNumber("0", 9));
-    },
-    { enabled: !!address },
-  );
-
-  return { [NetworkId.MAINNET]: query } as Record<NetworkId.MAINNET, typeof query>;
-};
 
 export const useOhmBalance = () => useBalance(UNITED_ADDRESSES);
 export const useSohmBalance = () => useBalance(SUNITED_ADDRESSES);

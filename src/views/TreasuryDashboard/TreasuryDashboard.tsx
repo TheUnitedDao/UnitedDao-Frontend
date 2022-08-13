@@ -8,12 +8,12 @@ import { memo } from "react";
 import { NavLink, Outlet, Route, Routes } from "react-router-dom";
 import { Environment } from "src/helpers/environment/Environment/Environment";
 
-import {
-  LiquidBackingGraph,
-  MarketValueGraph,
-  UNITEDStakedGraph,
-  ProtocolOwnedLiquidityGraph,
-} from "./components/Graph/Graph";
+// import {
+//   LiquidBackingGraph,
+//   MarketValueGraph,
+//   UNITEDStakedGraph,
+//   ProtocolOwnedLiquidityGraph,
+// } from "./components/Graph/Graph";
 import {
   BackingPerUNITED,
   CircSupply,
@@ -40,7 +40,7 @@ const MetricsDashboard = () => (
       </Paper>
     </Box>
     <Grid container spacing={2} className="data-grid">
-      <Grid item lg={6} md={6} sm={12} xs={12}>
+      {/* <Grid item lg={6} md={6} sm={12} xs={12}>
         <Paper className="UNITED-card UNITED-chart-card">
           <LiquidBackingGraph />
         </Paper>
@@ -62,7 +62,7 @@ const MetricsDashboard = () => (
         <Paper className="UNITED-card UNITED-chart-card">
           <ProtocolOwnedLiquidityGraph />
         </Paper>
-      </Grid>
+      </Grid> */}
 
       {/*  Temporarily removed until correct data is in the graph */}
       {/* <Grid item lg={6} md={12} sm={12} xs={12}>

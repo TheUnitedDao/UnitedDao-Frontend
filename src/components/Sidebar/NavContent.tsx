@@ -93,11 +93,11 @@ const NavContent: React.VFC = () => {
         </div>
 
         <StyledBox display="flex" justifyContent="space-between" paddingX="50px" paddingY="24px">
-          <Link href="https://github.com/UnitedDAO" target="_blank" rel="noopener noreferrer">
+          <Link href="https://github.com/TheUnitedDAO" target="_blank" rel="noopener noreferrer">
             <Icon name="github" className={classes.gray} />
           </Link>
 
-          <Link href="https://olympusdao.medium.com/" target="_blank" rel="noopener noreferrer">
+          <Link href="https://uniteddao.medium.com/" target="_blank" rel="noopener noreferrer">
             <Icon name="medium" className={classes.gray} />
           </Link>
 
